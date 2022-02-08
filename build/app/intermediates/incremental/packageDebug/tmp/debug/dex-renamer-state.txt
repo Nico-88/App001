@@ -1,0 +1,4 @@
+#Tue Feb 08 19:41:52 CET 2022
+base.0=/home/nico/Projekte/Powerlifting/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
