@@ -30,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String gender = 'male';
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       groupValue: gender,
                       onChanged: (value) {
                         setState(() {
+                          isVisible = false;
                           gender = value.toString();
                         });
                       },
@@ -63,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       groupValue: gender,
                       onChanged: (value) {
                         setState(() {
+                          isVisible = true;
                           gender = value.toString();
                         });
                       },
@@ -86,13 +89,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Taillienumfang in cm',
-                    border: OutlineInputBorder(),
-                  ),
+                Visibility(
+                  visible: isVisible ? true : false,
+                  child:
+                    Column(
+                      children: [
+                        SizedBox(height: 20),
+                        TextFormField(
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Hüftumfang in cm',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ],
+                    ),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
@@ -118,7 +129,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-
+                        if(gender == 'male') {
+                          print('Männer berechnung');
+                        } else {
+                          print('Frauen berechnung');
+                        }
                       },
                       child: Text('Berechnen')
                     ),
