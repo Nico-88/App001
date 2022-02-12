@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +32,29 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String gender = 'male';
   bool isVisible = true;
+  final _formKey = GlobalKey<FormState>();
+  String kfa = '0,00%';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      print("Formular ist gültig und kann verarbeitet werden");
+    } else {
+      print("Formular ist nicht gültig");
+      //_formKey.currentState?.reset();
+    }
+  }
+
+  String? integerValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Bitte gebe eine Zahl ein.';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.all(50),
             child: Column(
@@ -58,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                     ),
-                    Text('Mann'),
-                    SizedBox(width: 50),
+                    const Text('Mann'),
+                    const SizedBox(width: 50),
                     Radio(
                       value: 'female',
                       groupValue: gender,
@@ -70,21 +95,26 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                     ),
-                    Text('Frau'),
+                    const Text('Frau'),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  validator: integerValidator,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  decoration: const InputDecoration(
                     labelText: 'Körpergröße in cm',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  validator: integerValidator,
+                  decoration: const InputDecoration(
                     labelText: 'Nackenumfang in cm',
                     border: OutlineInputBorder(),
                   ),
@@ -94,10 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   child:
                     Column(
                       children: [
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextFormField(
                           keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
+                          validator: integerValidator,
+                          decoration: const InputDecoration(
                             labelText: 'Hüftumfang in cm',
                             border: OutlineInputBorder(),
                           ),
@@ -105,37 +136,32 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  validator: integerValidator,
+                  decoration: const InputDecoration(
                     labelText: 'Bauchumfang in cm',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        '0,0 %',
-                      style: const TextStyle(fontSize: 30),
+                      kfa,
+                      style: TextStyle(fontSize: 30),
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        if(gender == 'male') {
-                          print('Männer berechnung');
-                        } else {
-                          print('Frauen berechnung');
-                        }
-                      },
-                      child: Text('Berechnen')
+                      onPressed: () => _submit(),
+                      child: const Text('Berechnen'),
                     ),
                   ],
                 ),
