@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isVisible = true;
+  bool isVisible = false;
   final _formKey = GlobalKey<FormState>();
 
   String gender = 'male';
