@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var neckCircumference = 0;
   var hipCircumference = 0;
   var waistCircumference = 0;
-  var kfa = 0;
+  dynamic kfa = 0.00;
 
   @override
   void initState() {
@@ -48,10 +49,15 @@ class _MyHomePageState extends State<MyHomePage> {
   void _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState?.save();
-      print('bodySize: '+bodySize.toString());
-      print('neckCircumference: '+neckCircumference.toString());
-      print('hipCircumference: '+hipCircumference.toString());
-      print('waistCircumference: '+waistCircumference.toString());
+      if(gender == 'male') {
+        setState(() {
+          kfa = (86.010 * (log(waistCircumference - neckCircumference)/ln10) - 70.041 * (log(bodySize)/ln10) + 30.30).toDouble();
+        });
+      } else {
+        setState(() {
+          kfa = (163.205 * (log(waistCircumference + hipCircumference - neckCircumference)/ln10) - 97.684 * (log(bodySize)/ln10) - 104.912).toDouble();
+        });
+      }
     }
   }
 
@@ -176,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      kfa.toString(),
+                      kfa.toStringAsFixed(2) + ' %',
                       style: const TextStyle(fontSize: 30),
                     ),
                   ],
