@@ -30,10 +30,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String gender = 'male';
   bool isVisible = true;
   final _formKey = GlobalKey<FormState>();
-  String kfa = '0,00%';
+
+  String gender = 'male';
+  var bodySize = 0;
+  var neckCircumference = 0;
+  var hipCircumference = 0;
+  var waistCircumference = 0;
+  var kfa = 0;
 
   @override
   void initState() {
@@ -42,10 +47,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      print("Formular ist gültig und kann verarbeitet werden");
-    } else {
-      print("Formular ist nicht gültig");
-      //_formKey.currentState?.reset();
+      _formKey.currentState?.save();
+      print('bodySize: '+bodySize.toString());
+      print('neckCircumference: '+neckCircumference.toString());
+      print('hipCircumference: '+hipCircumference.toString());
+      print('waistCircumference: '+waistCircumference.toString());
     }
   }
 
@@ -102,6 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   validator: integerValidator,
+                  onSaved: (value) {
+                    setState(() {
+                      bodySize = int.parse(value!);
+                    });
+                  },
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly,
                   ],
@@ -114,6 +125,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   validator: integerValidator,
+                  onSaved: (value) {
+                    setState(() {
+                      neckCircumference = int.parse(value!);
+                    });
+                  },
                   decoration: const InputDecoration(
                     labelText: 'Nackenumfang in cm',
                     border: OutlineInputBorder(),
@@ -128,6 +144,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         TextFormField(
                           keyboardType: TextInputType.number,
                           validator: integerValidator,
+                          onSaved: (value) {
+                            setState(() {
+                              hipCircumference = int.parse(value!);
+                            });
+                          },
                           decoration: const InputDecoration(
                             labelText: 'Hüftumfang in cm',
                             border: OutlineInputBorder(),
@@ -140,6 +161,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   validator: integerValidator,
+                  onSaved: (value) {
+                    setState(() {
+                      waistCircumference = int.parse(value!);
+                    });
+                  },
                   decoration: const InputDecoration(
                     labelText: 'Bauchumfang in cm',
                     border: OutlineInputBorder(),
@@ -150,8 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      kfa,
-                      style: TextStyle(fontSize: 30),
+                      kfa.toString(),
+                      style: const TextStyle(fontSize: 30),
                     ),
                   ],
                 ),
