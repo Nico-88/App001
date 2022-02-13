@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'AlphaFitness KFA Rechner'),
     );
   }
 }
@@ -35,10 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
 
   String gender = 'male';
-  var bodySize = 0;
-  var neckCircumference = 0;
-  var hipCircumference = 0;
-  var waistCircumference = 0;
+  dynamic bodySize = 0;
+  dynamic neckCircumference = 0;
+  dynamic hipCircumference = 0;
+  dynamic waistCircumference = 0;
   dynamic kfa = 0.00;
 
   @override
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  String? integerValidator(value) {
+  String? numValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Bitte gebe eine Zahl ein.';
     }
@@ -113,14 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  validator: integerValidator,
+                  validator: numValidator,
                   onSaved: (value) {
                     setState(() {
-                      bodySize = int.parse(value!);
+                      bodySize = double.parse(value!);
                     });
                   },
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
                   ],
                   decoration: const InputDecoration(
                     labelText: 'Körpergröße in cm',
@@ -130,12 +130,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  validator: integerValidator,
+                  validator: numValidator,
                   onSaved: (value) {
                     setState(() {
-                      neckCircumference = int.parse(value!);
+                      neckCircumference = double.parse(value!);
                     });
                   },
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+                  ],
                   decoration: const InputDecoration(
                     labelText: 'Nackenumfang in cm',
                     border: OutlineInputBorder(),
@@ -149,12 +152,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         const SizedBox(height: 20),
                         TextFormField(
                           keyboardType: TextInputType.number,
-                          validator: integerValidator,
+                          validator: numValidator,
                           onSaved: (value) {
                             setState(() {
-                              hipCircumference = int.parse(value!);
+                              hipCircumference = double.parse(value!);
                             });
                           },
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+                          ],
                           decoration: const InputDecoration(
                             labelText: 'Hüftumfang in cm',
                             border: OutlineInputBorder(),
@@ -166,12 +172,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  validator: integerValidator,
+                  validator: numValidator,
                   onSaved: (value) {
                     setState(() {
-                      waistCircumference = int.parse(value!);
+                      waistCircumference = double.parse(value!);
                     });
                   },
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+                  ],
                   decoration: const InputDecoration(
                     labelText: 'Bauchumfang in cm',
                     border: OutlineInputBorder(),
