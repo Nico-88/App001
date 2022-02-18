@@ -122,6 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       bodySize = double.parse(value!);
                     });
                   },
+                  onChanged: (value) => _submit(),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
                   ],
@@ -139,6 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       neckCircumference = double.parse(value!);
                     });
                   },
+                  onChanged: (value) => _submit(),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
                   ],
@@ -161,6 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               hipCircumference = double.parse(value!);
                             });
                           },
+                          onChanged: (value) => _submit(),
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
                           ],
@@ -181,6 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       waistCircumference = double.parse(value!);
                     });
                   },
+                  onChanged: (value) => _submit(),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
                   ],
@@ -200,15 +204,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => _submit(),
-                      child: const Text('Berechnen'),
-                    ),
-                  ],
-                ),
               ],
             )
           )
