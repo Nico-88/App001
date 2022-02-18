@@ -58,6 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
           kfa = (163.205 * (log(waistCircumference + hipCircumference - neckCircumference)/ln10) - 97.684 * (log(bodySize)/ln10) - 104.912).toDouble();
         });
       }
+      if(kfa.isNaN || kfa.isInfinite || kfa < 0) {
+        kfa = 0.00;
+      }
     }
   }
 
