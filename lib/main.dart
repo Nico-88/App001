@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           isVisible = false;
                           gender = value.toString();
+                          _submit();
                         });
                       },
                     ),
@@ -107,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           isVisible = true;
                           gender = value.toString();
+                          _submit();
                         });
                       },
                     ),
